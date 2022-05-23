@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { getFirestore, collection, addDoc } from "firebase/firestore";
 
 const apiKey = process.env.API_KEY;
 
@@ -20,6 +21,17 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+
+// Work with Storage
 export const storage = getStorage(app);
+
+// Work with Firestore
+const db = getFirestore();
+const ingCollectionRef = collection(db, "images");
+
+export const addImageRecord = (imgLink: string, cb) =>
+  addDoc(ingCollectionRef, { link: imgLink }).then(() => {
+    cb();
+  });
 
 export default app;

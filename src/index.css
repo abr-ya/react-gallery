@@ -34,10 +34,17 @@ body{
 }
 
 /* upload form styles */
-
+form {
+  margin: 30px auto 10px;
+  text-align: center;
+}
 
 /* progress bar styles */
-
+.progress-bar {
+  height: 5px;
+  background: var(--primary);
+  margin-top: 20px;
+}
 
 /* image grid styles */
 

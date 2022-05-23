@@ -5,12 +5,10 @@ const ProgressBar = ({ file, setFile }: any) => {
   const { progress, url } = useStorage(file);
 
   useEffect(() => {
-    if (url) {
-      setFile(null);
-    }
+    if (url) setFile(null);
   }, [url, setFile]);
 
-  return <div className="progress-bar">{`${progress} + "%"`}</div>;
+  return <div className="progress-bar" style={{ width: progress + "%" }}></div>;
 };
 
 export default ProgressBar;
