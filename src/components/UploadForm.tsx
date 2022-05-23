@@ -1,4 +1,5 @@
 import { FormEvent, useState } from "react";
+import FileLoader from "./FileLoader";
 
 const UploadForm = () => {
   const [file, setFile] = useState(null);
@@ -7,9 +8,9 @@ const UploadForm = () => {
   const imgTypes = ["image/png", "image/jpeg"];
 
   const handleChange = (e: FormEvent<HTMLInputElement>) => {
-    if (e && e.target) {
+    if (e && e.target?.files[0]) {
       const target = e.target as HTMLInputElement;
-      const selected = target.files[0];
+      const selected: File = target.files[0];
       console.log(selected);
 
       if (selected && imgTypes.includes(selected.type)) {
@@ -31,6 +32,7 @@ const UploadForm = () => {
       <div className="output">
         {error && <div className="error">{error}</div>}
         {file && <div>{`Выбран файл: ${file.name}`}</div>}
+        {file && <FileLoader file={file} setFile={setFile} />}
       </div>
     </form>
   );
