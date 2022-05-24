@@ -1,7 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-import { getFirestore, collection, addDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 const apiKey = process.env.API_KEY;
 
@@ -29,9 +34,11 @@ export const storage = getStorage(app);
 const db = getFirestore();
 const ingCollectionRef = collection(db, "images");
 
-export const addImageRecord = (imgLink: string, cb) =>
-  addDoc(ingCollectionRef, { link: imgLink }).then(() => {
+export const addImageRecord = (imgLink: string, createdAt: string, cb: any) =>
+  addDoc(ingCollectionRef, { link: imgLink, createdAt }).then(() => {
     cb();
   });
+
+export const timestamp = serverTimestamp;
 
 export default app;

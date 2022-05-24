@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
-import { storage, addImageRecord } from "../services/fire";
+import { storage, addImageRecord, timestamp } from "../services/fire";
 
 const useStorage = (file: File) => {
   const [progress, setProgress] = useState(0);
@@ -32,7 +32,8 @@ const useStorage = (file: File) => {
             console.log("File available at", downloadURL);
             setUrl(downloadURL);
             setProgress(0);
-            addImageRecord(downloadURL, () => console.log("url saved!"));
+            const createdAt = timestamp();
+            addImageRecord(downloadURL, createdAt, () => console.log("url saved!"));
           });
         },
       );
