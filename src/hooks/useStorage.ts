@@ -8,30 +8,35 @@ const useStorage = (file: File) => {
   const [url, setUrl] = useState("");
 
   useEffect(() => {
-    // references
-    const storageRef = ref(storage, `images/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+    console.log("useStorage => useEffect, file: ", file);
 
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-        );
-        setProgress(prog);
-      },
-      (error) => {
-        console.log(error);
-        setError(error.message);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          setUrl(downloadURL);
-          addImageRecord(downloadURL, () => console.log("done!"));
-        });
-      },
-    );
+    if (file) {
+      // references
+      const storageRef = ref(storage, `images/${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const prog = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
+          );
+          setProgress(prog);
+        },
+        (error) => {
+          console.log(error);
+          setError(error.message);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            setUrl(downloadURL);
+            setProgress(0);
+            addImageRecord(downloadURL, () => console.log("url saved!"));
+          });
+        },
+      );
+    }
   }, [file]);
 
   return { progress, url, error };
