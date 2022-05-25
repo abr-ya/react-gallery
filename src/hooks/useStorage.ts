@@ -33,7 +33,9 @@ const useStorage = (file: File) => {
             setUrl(downloadURL);
             setProgress(0);
             const createdAt = timestamp();
-            addImageRecord(downloadURL, createdAt, () => console.log("url saved!"));
+            addImageRecord(downloadURL, createdAt, () => {
+              console.log("url saved!");
+            });
           });
         },
       );
