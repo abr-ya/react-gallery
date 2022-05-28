@@ -8,6 +8,8 @@ import {
   getDocs,
   onSnapshot,
   serverTimestamp,
+  query,
+  orderBy,
 } from "firebase/firestore";
 
 const apiKey = process.env.API_KEY;
@@ -41,9 +43,12 @@ export const getImages = getDocs(ingCollectionRef);
 
 // subscribe to images collection
 export const imgSubscribe = (cb: any) =>
-  onSnapshot(ingCollectionRef, (snapshot) => {
-    cb(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-  });
+  onSnapshot(
+    query(ingCollectionRef, orderBy("createdAt", "desc")),
+    (snapshot) => {
+      cb(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    },
+  );
 
 // add record to images collection
 export const addImageRecord = (imgLink: string, createdAt: string, cb: any) =>

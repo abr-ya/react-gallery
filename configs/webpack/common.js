@@ -21,28 +21,6 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
-      // {
-      //   test: /\.(scss|sass)$/,
-      //   exclude: /\.module\.(scss|sass)$/,
-      //   use: ["style-loader", "css-loader", "sass-loader"],
-      // },
-      // {
-      //   test: /\.(scss|sass)$/,
-      //   include: /\.module\.(scss|sass)$/,
-      //   use: [
-      //     MiniCssExtractPlugin.loader,
-      //     "@teamsupercell/typings-for-css-modules-loader",
-      //     {
-      //       loader: "css-loader",
-      //       options: {
-      //         modules: {
-      //           localIdentName: "[local]_[hash:base64:5]", // [name]
-      //         },
-      //       },
-      //     },
-      //     "sass-loader",
-      //   ],
-      // },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         use: [
