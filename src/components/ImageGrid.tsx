@@ -2,7 +2,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { imgSubscribe } from "services/fire";
 
-const ImageGrid = () => {
+interface IImageGrid {
+  setSelectedImg: (img: string) => void;
+}
+
+const ImageGrid = ({ setSelectedImg }: IImageGrid) => {
   console.log("ImageGrid render");
   const [images, setImages] = useState([]);
 
@@ -22,7 +26,7 @@ const ImageGrid = () => {
             key={img.id}
             layout
             whileHover={{ opacity: 1 }}
-            onClick={() => console.log("img_click")}
+            onClick={() => setSelectedImg(img.link)}
           >
             <motion.img
               src={img.link}
